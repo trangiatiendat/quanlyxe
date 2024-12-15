@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Xe</title>
+    <link rel="stylesheet" href="style.css"> <!-- Liên kết file CSS -->
+</head>
+<body>
+    <div class="container">
+        <h1>Quản Lý Xe</h1>
+        <form method="POST" action="/save">
+            <div class="form-group">
+                <label for="license_plate">Biển số xe:</label>
+                <input type="text" id="license_plate" name="license_plate" placeholder="Nhập biển số xe">
+            </div>
+            <div class="form-group">
+                <label for="code">Mã số gửi xe:</label>
+                <input type="text" id="code" name="code" placeholder="Nhập mã số gửi xe">
+            </div>
+            <div class="form-group">
+                <label for="time">Thời gian lấy xe:</label>
+                <input type="datetime-local" id="time" name="time">
+            </div>
+            <button type="submit" class="btn">Lưu Thông Tin</button>
+        </form>
+
+        <h2>Thông tin xe đã lưu</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Biển số xe</th>
+                    <th>Mã số gửi xe</th>
+                    <th>Thời gian lấy xe</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vehicle in vehicles %}
+                <tr>
+                    <td>{{ vehicle.id }}</td>
+                    <td>{{ vehicle.license_plate }}</td>
+                    <td>{{ vehicle.code }}</td>
+                    <td>{{ vehicle.time }}</td>
+                    <td><a href="/delete/{{ vehicle.id }}" class="delete-link">Xóa</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button onclick="window.location.href='/export'" class="btn-export">Xuất Excel</button>
+    </div>
+</body>
+</html>
